@@ -13,18 +13,18 @@ public class NormalFrame extends Frame {
    }
 
    private boolean isStrike() {
-      return pins == 10 && rolls.size() == 1;
+      return getPins() == 10 && numRolls() == 1;
    }
 
    private boolean isSpare() {
-      return pins == 10 && rolls.size() == 2;
+      return getPins() == 10 && numRolls() == 2;
    }
 
    @Override
-   public int sumNextRolls(int numRolls) {
-      int bonus = super.sumNextRolls(numRolls);
-      if (rolls.size()<numRolls)
-         bonus += nextFrame.sumNextRolls(numRolls - rolls.size());
+   public int sumNextRolls(int nextRolls) {
+      int bonus = super.sumNextRolls(nextRolls);
+      if (this.numRolls() < nextRolls)
+         bonus += nextFrame.sumNextRolls(nextRolls - this.numRolls());
       return bonus;
    }
 
@@ -39,12 +39,21 @@ public class NormalFrame extends Frame {
 
    @Override
    public int score() {
-      return pins + bonus() + nextFrame.score();
+      System.out.println(getPins() + bonus());
+      return getPins() + bonus() + nextFrame.score();
    }
 
    @Override
    public boolean isComplete() {
-      return this.isStrike() || (rolls.size() == 2);
+      return this.isStrike() || numRolls() >= 2;
+   }
+
+   @Override
+   public void roll(int pins) {
+      if (this.isComplete())
+         nextFrame.roll(pins);
+      else
+         addRoll(pins);
    }
 
 }

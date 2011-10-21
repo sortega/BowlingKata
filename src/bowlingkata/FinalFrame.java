@@ -9,12 +9,17 @@ public class FinalFrame extends Frame {
 
    @Override
    public int score() {
-      return pins;
+      return getPins();
    }
 
    @Override
    public Frame getNextFrame() {
       return null;
+   }
+
+   @Override
+   public void roll(int pins) {
+      addRoll(pins);
    }
 
 }

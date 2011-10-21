@@ -4,11 +4,9 @@ public class Game {
    private static final int GAME_FRAMES = 10;
 
    private Frame firstFrame;
-   private Frame currentFrame;
 
    public Game() {
       this.firstFrame = createLinkedFrames(GAME_FRAMES);
-      this.currentFrame = firstFrame;
    }
 
    private Frame createLinkedFrames(int number) {
@@ -19,9 +17,7 @@ public class Game {
    }
 
    public void roll(int pins) {
-      if (currentFrame.isComplete())
-         currentFrame = currentFrame.getNextFrame();
-      currentFrame.roll(pins);
+      firstFrame.roll(pins);
    }
 
    public int score() {

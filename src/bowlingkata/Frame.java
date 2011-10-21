@@ -3,25 +3,35 @@ package bowlingkata;
 import java.util.*;
 
 public abstract class Frame {
-   protected List<Integer> rolls;
-   protected int pins;
+   private List<Integer> rolls;
+   private int pins;
 
    public Frame() {
       this.rolls = new ArrayList<Integer>();
       this.pins = 0;
    }
 
-   public void roll(int p) {
+   public int getPins() {
+      return pins;
+   }
+
+   protected void addRoll(int p) {
       rolls.add(p);
       pins += p;
    }
 
-   public int sumNextRolls(int numRolls) {
+   protected int numRolls() {
+      return rolls.size();
+   }
+
+   protected int sumNextRolls(int numRolls) {
       int bonus = 0;
       for (int i=0; i<rolls.size() && i<numRolls; i++)
          bonus += rolls.get(i);
       return bonus;
    }
+
+   public abstract void roll(int pins);
 
    public abstract boolean isComplete();
 
